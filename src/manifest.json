@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+
+  "name": "知乎助手",
+  "description": "在知乎页面里显示更多信息",
+  "version": "2015.1.12",
+
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icon19.png",
+      "38": "images/icon38.png"
+    }
+  },
+  "permissions": [
+    "tabs",
+    "alarms",
+    "storage",
+    "unlimitedStorage",
+    "webRequest",
+    "http://www.zhihu.com/"
+  ],
+
+  "background": {
+    "page": "background.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["http://www.zhihu.com/people/*/answers*"],
+      "js": ["common.js", "show_collection.js"]
+    },
+    {
+      "matches": ["http://www.zhihu.com/*"],
+      "js": ["common.js", "show_remark.js"]
+    }
+  ]
+}
