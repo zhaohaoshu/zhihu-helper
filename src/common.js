@@ -52,6 +52,17 @@ function refreshNotification() {
   });
 }
 
+function getPersonID(href) {
+  var str = "people/";
+  var i = href.indexOf(str);
+  if (i < 0)
+    return null;
+  var j = href.indexOf("/", i + str.length);
+  if (j < 0)
+    return href.substr(i + str.length);
+  return href.substring(i + str.length, j);
+}
+
 //===Options===
 function resetAllOptions(callback) {
   options = {

@@ -1,14 +1,3 @@
-function getPersonID(href) {
-  var str = "people/";
-  var i = href.indexOf(str);
-  if (i < 0)
-    return null;
-  var j = href.indexOf("/", i + str.length);
-  if (j < 0)
-    return href.substr(i + str.length);
-  return href.substring(i + str.length, j);
-}
-
 function displayRemark(person, id, remark, showEmpty) {
   var link = document.createElement("a");
   if (remark != null || showEmpty) {
@@ -25,8 +14,8 @@ function displayRemark(person, id, remark, showEmpty) {
   }
 }
 
-getOption("show_remark", function(value) {
-  if (value) {
+getAllOptions(function(options) {
+  if (options.show_remark) {
     getAllRemarks(function(remarks) {
       var people = getArray(document.getElementsByTagName("a"));
       for (var i = 0; i < people.length; i++) {
@@ -34,11 +23,11 @@ getOption("show_remark", function(value) {
           var id = getPersonID(people[i].href);
           if (id != null) {
             if (people[i].parentNode.className == "source") // 关注的人
-              displayRemark(people[i], id, remarks[id], true);
+              displayRemark(people[i], id, remarks[id], options.show_remark_empty);
             else if (people[i].parentNode.className == "zm-item-answer-author-wrap") // 回答的人
-              displayRemark(people[i], id, remarks[id], true);
+              displayRemark(people[i], id, remarks[id], options.show_remark_empty);
             else if (people[i].parentNode.className == "reason") // 关注的也关注可能感兴趣的人的人
-              displayRemark(people[i], id, remarks[id], true);
+              displayRemark(people[i], id, remarks[id], options.show_remark_empty);
           }
         }
       }

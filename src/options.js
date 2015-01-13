@@ -32,51 +32,57 @@ var allMetaOptions = [{
     },
   }]
 }, {
+  "name": "show_remark",
+  "type": "check",
+  "text": "在人名后显示备注",
+  "description": "在用户名字的后面显示备注，点击备注可以进行更改。",
+  "sub_options": [{
+    "name": "show_remark_empty",
+    "type": "check",
+    "text": "显示添加备注按钮",
+    "description": "在没有备注的用户名后面显示添加备注按钮。不选择此选项时，可以去用户的页面中添加备注。",
+  }]
+}, {
   "name": "show_collection",
   "type": "check",
   "text": "在答案下显示收藏",
   "description": "在用户的回答页面中的答案下显示收藏该答案的收藏夹。"
-}, {
-  "name": "show_remark",
-  "type": "check",
-  "text": "在人名后显示备注",
-  "description": "在用户名字的后面显示备注，点击备注可以进行更改。"
 }];
 
 function createOptionDiv(metaOption) {
-    var div = document.createElement("div");
-    if (metaOption.hasOwnProperty("description"))
-      div.title = metaOption.description;
-    switch (metaOption.type) {
-      case "check":
-        {
-          var label = document.createElement("label");
-          div.appendChild(label);
-          var input = document.createElement("input");
-          label.appendChild(input);
-          input.id = metaOption.name;
-          input.type = "checkbox";
-          input.style.verticalAlign = "middle";
-          var text = document.createTextNode(metaOption.text);
-          label.appendChild(text);
-          if (metaOption.hasOwnProperty("sub_options")) {
-            var subDiv = createOptionsDiv(metaOption.sub_options);
-            div.appendChild(subDiv);
-            subDiv.style.marginLeft = "20px";
-          }
-          getOption(metaOption.name, function(value) {
-            input.checked = value;
-            if (typeof subDiv != "undefined")
-              subDiv.style.display = value ? "" : "none";
-          });
-          input.onchange = function() {
-              changeOption(metaOption.name, input.checked);
-              if (typeof subDiv != "undefined")
-                subDiv.style.display = input.checked ? "" : "none";
-              if (metaOption.hasOwnProperty("onchange"))
-                metaOption.onchange(metaOption.name, input.checked);
-          };
-          break;
+  var div = document.createElement("div");
+  switch (metaOption.type) {
+    case "check":
+      {
+        var label = document.createElement("label");
+        if (metaOption.hasOwnProperty("description"))
+          label.setAttribute("data-tooltip", metaOption.description);
+        div.appendChild(label);
+        var input = document.createElement("input");
+        label.appendChild(input);
+        input.id = metaOption.name;
+        input.type = "checkbox";
+        input.style.verticalAlign = "middle";
+        var text = document.createTextNode(metaOption.text);
+        label.appendChild(text);
+        if (metaOption.hasOwnProperty("sub_options")) {
+          var subDiv = createOptionsDiv(metaOption.sub_options);
+          div.appendChild(subDiv);
+          subDiv.style.marginLeft = "20px";
+        }
+        getOption(metaOption.name, function(value) {
+          input.checked = value;
+          if (typeof subDiv != "undefined")
+            subDiv.style.display = value ? "" : "none";
+        });
+        input.onchange = function() {
+          changeOption(metaOption.name, input.checked);
+          if (typeof subDiv != "undefined")
+            subDiv.style.display = input.checked ? "" : "none";
+          if (metaOption.hasOwnProperty("onchange"))
+            metaOption.onchange(metaOption.name, input.checked);
+        };
+        break;
       }
   }
   return div;

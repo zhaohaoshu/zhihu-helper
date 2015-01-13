@@ -1,0 +1,28 @@
+*[data-tooltip] {
+  position: relative;
+}
+
+*[data-tooltip]::after {
+  content: attr(data-tooltip);
+
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 150px;
+
+  pointer-events: none;
+  opacity: 0;
+
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  background: #fefdcd;
+  padding: 2px 2px;
+  border: 1px solid #c0c0c0;
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.4);
+}
+
+*[data-tooltip]:hover::after {
+  opacity: 1;
+  z-index: 1;
+}
