@@ -70,8 +70,9 @@ function resetAllOptions(callback) {
     "show_notification_answer": true,
     "show_notification_follow": true,
     "show_notification_vote": true,
+    "show_remark": true,
+    "show_remark_empty": true,
     "show_collection": true,
-    "show_remark": true
   };
   chrome.storage.sync.set({
     "options": options
