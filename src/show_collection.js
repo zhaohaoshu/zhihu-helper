@@ -13,7 +13,8 @@ function loadAnswer(answer) {
       fieldset.appendChild(legend);
       while (collections.length > 0)
         fieldset.appendChild(collections[0]);
-      answer.children[1].insertBefore(fieldset, answer.children[1].children[4]);
+      var head = answer.getElementsByClassName("answer-head")[0];
+      head.parentNode.insertBefore(fieldset, head.nextSibling);
     }
     divHidden.parentNode.removeChild(divHidden);
   });
